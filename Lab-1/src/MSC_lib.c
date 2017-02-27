@@ -30,7 +30,7 @@ int sc_memoryGet(int address, int *value)
 		*value = RAM[address];
 		return 0;
 	} else {
-
+		sc_regSet(OUT_OF_MEMORY, 1);
 		error_handler(3);
 		return 0;
 	}
@@ -71,20 +71,37 @@ int sc_memoryLoad(char *filename)
 	return 0;
 }
 
-/*int sc_regInit(void)
+int sc_regInit(void)
 {
-
+	reg_flag = 0;
+	return 0;
 }
 
-int sc_regSet(int register, int value)
+int sc_regSet(int regist, int value)
 {
-
+	if (regist >= 0x01 && regist <= 0x10) {
+		if (value == 0)
+			reg_flag &= regist;
+		else if (value == 1)
+			reg_flag |= regist;
+		else {
+			error_handler(8);
+		}
+	} else {
+		error_handler(9);
+	}
+	return 0;
 }
 
-int sc_regGet(int register, int *value)
+int sc_regGet(int regist, int *value)
 {
-
-}*/
+	if (regist >= 0x1 && regist <= 0x10)
+		*value = (reg_flag & regist) > 0 ? 1 : 0;
+	else {
+		error_handler(9);
+	}
+	return 0;
+}
 
 int sc_commandEncode(int command, int operand, int *value)
 {
@@ -95,7 +112,7 @@ int sc_commandEncode(int command, int operand, int *value)
 			error_handler(6);
 		}
 	} else {
-
+		sc_regSet(COMMAND_ERR, 1);
 		error_handler(7);
 	}
 	return 0;
@@ -112,7 +129,7 @@ int sc_commandDecode (int value, int *command, int *operand)
 			error_handler(6);
 		}
 	} else {
-
+		sc_regSet(COMMAND_ERR, 1);
 		error_handler(7);
 	}
 	return 0;
@@ -145,10 +162,10 @@ void error_handler(int error)
 			fprintf(stderr, "Wrong command!\n");
 			exit(EXIT_FAILURE);
 		case 8:
-			fprintf(stderr, "\n");
+			fprintf(stderr, "Wrong value for the register!\n");
 			exit(EXIT_FAILURE);
 		case 9:
-			fprintf(stderr, "\n");
+			fprintf(stderr, "Wrong register was selected!\n");
 			exit(EXIT_FAILURE);
 		case 10:
 			fprintf(stderr, "\n");
