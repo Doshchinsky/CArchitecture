@@ -6,7 +6,7 @@
 
 int main(int argc, char *argv[])
 {
-	/* code */
+	sc_memoryInit();
 
 	return EXIT_SUCCESS;
 }

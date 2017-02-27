@@ -12,4 +12,6 @@ int sc_regGet(int register, int *value); /* Возвращает значени�
 int sc_commandEncode(int command, int operand, int *value); /* Кодирует команду с указанным номером и операндом и помещает результат в value. */
 int sc_commandDecode (int value, int *command, int *operand); /* Декодирует значение как команду SC. */
 
+void error_handler(int error);
+
 #endif
