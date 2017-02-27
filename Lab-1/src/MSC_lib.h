@@ -25,9 +25,9 @@ int sc_commandEncode(int command, int operand, int *value); /* Кодирует 
 int sc_commandDecode (int value, int *command, int *operand); /* Декодирует значение как команду SC. */
 
 void error_handler(int error); /* Обработчик ошибок. */
-void RAM_TEST();
-void MEM_CHECK();
-void REG_CHECK();
-void COM_CHECK();
+void RAM_TEST(); /* Запуск цепочки тестов */
+void MEM_CHECK(); /* Проверка функций, отвечающих за работу с памятью. */
+void REG_CHECK(); /* Проверка функций, отвечающих за работу с регистрами и флагами регистров. */
+void COM_CHECK(); /* Проверка функций, отвечающих за работу кодирования и декодирования. */
 
 #endif

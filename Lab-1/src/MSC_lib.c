@@ -39,36 +39,43 @@ int sc_memoryGet(int address, int *value)
 int sc_memorySave(char *filename)
 {
 	FILE *file = fopen(filename, "w");
+	int passed = 1;
 
 	if (!file)
 	{
+		passed = 0;
 		error_handler(2);
 	}
 
 	if (!fwrite(RAM, sizeof(int), 100, file))
 	{
+		passed = 0;
 		error_handler(4);
 	}
 
 	fclose(file);
-	return 0;
+	return passed;
 }
 
 int sc_memoryLoad(char *filename)
 {
 	FILE *file = fopen(filename, "r");
+	int passed = 1;
 
-	if (!file) {
+	if (!file)
+	{
+		passed = 0;
 		error_handler(2);
 	}
 	
 	sc_memoryInit();
 	if (!fread(RAM, sizeof(int), 100, file))
 	{
+		passed = 0;
 		error_handler(5);
 	}
 	fclose(file);
-	return 0;
+	return passed;
 }
 
 int sc_regInit(void)
@@ -215,9 +222,11 @@ void COM_CHECK()
 	printf("\n\n\t\t COMMAND CHECK START: (3/3)\n");
 	int value = 0, command = 15, operand = 24;
 	printf("\t    Encode: command = %d, operand = %d.\n", command, operand);
-	if (!sc_commandEncode(command, operand, &value)) {
+	if (!sc_commandEncode(command, operand, &value))
+	{
 		command = operand = 0;
-		if (!sc_commandDecode(value, &command, &operand)) {
+		if (!sc_commandDecode(value, &command, &operand))
+		{
 			printf("\t    Decode: command = %d, operand = %d.\n", command, operand);
 			if (command == 15 && operand == 24)
 				printf("\tENCODE & DECODE COMPLETED SUCCESSFULLY!\n");
