@@ -168,7 +168,67 @@ void error_handler(int error)
 			fprintf(stderr, "Wrong register was selected!\n");
 			exit(EXIT_FAILURE);
 		case 10:
-			fprintf(stderr, "\n");
+			fprintf(stderr, "Easter-egg ^-^\n");
 			exit(EXIT_FAILURE);
 	}
+}
+
+void MEM_CHECK()
+{
+	printf("\t\tMEMORY CHECK START: (1/3)\n");
+	int tmp = 0;
+	sc_memoryInit();
+	if (!sc_memorySet(0, 1)) {
+		printf("\t\t |-----> Set (PASSED)\n");
+			if (!sc_memoryGet(0, &tmp) && tmp == 1) {
+				printf("\t\t |-----> Get (PASSED)\n");
+					if (!sc_memorySave("RAM")) {
+						printf("\t\t |-----> Save (PASSED)\n");
+							if (!sc_memoryLoad("RAM") && RAM[0] == 1) {
+								printf("\t\t |-----> Load (PASSED)\n\tMEMORY CHECK COMPLETED SUCCESSFULLY!\n");
+							} else
+								printf("\t\tWrong loaded value\n");
+					}
+			} else
+				printf("\t\tWrong get value\n");
+	}
+}
+
+void REG_CHECK()
+{
+	printf("\n\n\t\tREGISTER CHECK START: (2/3)\n");
+	sc_regInit();
+	int tmp = 0;
+	if (!sc_regSet(FREQ_ERR, 1)) {
+		printf("\t\t |-----> Set (PASSED)\n");
+		printf("\t\t |\t%d\n", reg_flag);
+		if (!sc_regGet(FREQ_ERR, &tmp) && tmp == 1) {
+			printf("\t\t |\t%d\n", tmp);
+			printf("\t\t |-----> Get (PASSED)\n");
+			printf("\tREGISTER CHECK COMPLETED SUCCESSFULLY!\n");
+		}
+	}
+}
+
+void COM_CHECK()
+{
+	printf("\n\n\t\t COMMAND CHECK START: (3/3)\n");
+	int value = 0, command = 15, operand = 24;
+	printf("\t    Encode: command = %d, operand = %d.\n", command, operand);
+	if (!sc_commandEncode(command, operand, &value)) {
+		command = operand = 0;
+		if (!sc_commandDecode(value, &command, &operand)) {
+			printf("\t    Decode: command = %d, operand = %d.\n", command, operand);
+			if (command == 15 && operand == 24)
+				printf("\tENCODE & DECODE COMPLETED SUCCESSFULLY!\n");
+		}
+	}
+	return;
+}
+
+void RAM_TEST()
+{
+	MEM_CHECK();
+	REG_CHECK();
+	COM_CHECK();
 }

@@ -2,7 +2,6 @@
 
 int main(int argc, char *argv[])
 {
-	sc_memoryInit();
-
+	RAM_TEST();
 	return EXIT_SUCCESS;
 }
