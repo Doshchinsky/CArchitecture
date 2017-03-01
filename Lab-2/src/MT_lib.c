@@ -1,4 +1,5 @@
 #include "MT_lib.h"
+#include "../../Lab-1/src/MSC_lib.h"
 
 int mt_clrscr()
 {
@@ -41,7 +42,7 @@ int mt_getscreensize(int *rows, int *cols)
 	}
 }
 
-int mt_setfgcolor(enum colors)
+int mt_setfgcolor(enum colors colors)
 {
 	int color;
 	switch(colors)
@@ -82,7 +83,7 @@ int mt_setfgcolor(enum colors)
 	return 0;
 }
 
-int mt_setbgcolor(enum colors)
+int mt_setbgcolor(enum colors colors)
 {
 	int color;
 	switch(colors)
@@ -128,10 +129,23 @@ void CONSOLE_TEST()
 	int rows, cols;
 
 	mt_clrscr();
-	mt_gotoXY(20, 20);
+	mt_gotoXY(10, 7);
 	mt_getscreensize(&rows, &cols);
-	mt_setfgcolor(red);
-	mt_setbgcolor(cyan);
+	mt_setfgcolor(black);
+	mt_setbgcolor(white);
 	
-	printf("Size of the console: %dx%d\n", rows, cols);
+	printf("Size of the console: %dx%d\n\n", rows, cols);
+
+	sc_memoryLoad("RAM");
+	int cell = 0;
+	for (int i = 0; i < 10; ++i)
+	{
+		for (int j = 0; j < 10; ++j)
+		{
+			printf("%d   ", RAM[cell]);
+			cell++;
+		}
+		printf("\n");
+	}
+
 }

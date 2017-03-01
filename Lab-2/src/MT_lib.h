@@ -6,6 +6,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <sys/ioctl.h>
+#include "../../Lab-1/src/MSC_lib.h"
 
 enum colors {black, red, green, yellow, blue,
 		purple, cyan, white} colors;
