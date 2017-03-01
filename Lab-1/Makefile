@@ -32,4 +32,4 @@ $(dirs):
 
 .PHONY: clean
 clean:
-	rm -f -r bin/ obj/
+	rm -f -r bin/ obj/ RAM

@@ -4,7 +4,8 @@
 CTEST(MSC_suite, memory_init)
 {
     // Given
-    const int i = 1;
+    const int SIZE = 100;
+    int i = 0;
 
     // When
     sc_memoryInit();
@@ -13,7 +14,8 @@ CTEST(MSC_suite, memory_init)
     
     const int expected_memory_cell = 0;
 
-    ASSERT_EQUAL(expected_memory_cell, RAM[i]);
+    for (i = 0; i < SIZE; i++)
+        ASSERT_EQUAL(expected_memory_cell, RAM[i]);
 }
 
 CTEST(MSC_suite, memory_set)
@@ -56,7 +58,7 @@ CTEST(MSC_suite, memory_save)
     answer = sc_memorySave("RAM");
 
     // Then
-    const int expected_answer = 1;
+    const int expected_answer = 0;
 
     ASSERT_EQUAL(expected_answer, answer);
 }
@@ -70,7 +72,7 @@ CTEST(MSC_suite, memory_load)
     answer = sc_memoryLoad("RAM");
 
     // Then
-    const int expected_answer = 1;
+    const int expected_answer = 0;
     const int expected_memory_cell = 1;
 
     ASSERT_EQUAL(expected_answer, answer);
