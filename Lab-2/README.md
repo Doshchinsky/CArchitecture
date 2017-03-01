@@ -1,0 +1,1 @@
+# Laboratory №2: "The management console model SimpleComputer"
