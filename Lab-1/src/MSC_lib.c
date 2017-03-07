@@ -38,18 +38,18 @@ int sc_memoryGet(int address, int *value)
 
 int sc_memorySave(char *filename)
 {
-	FILE *file = fopen(filename, "w");
-	int passed = 1;
+	FILE *file = fopen(filename, "wb");
+	int passed = 0;
 
 	if (!file)
 	{
-		passed = 0;
+		passed = 1;
 		error_handler(2);
 	}
 
 	if (!fwrite(RAM, sizeof(int), 100, file))
 	{
-		passed = 0;
+		passed = 1;
 		error_handler(4);
 	}
 
@@ -59,19 +59,19 @@ int sc_memorySave(char *filename)
 
 int sc_memoryLoad(char *filename)
 {
-	FILE *file = fopen(filename, "r");
-	int passed = 1;
+	FILE *file = fopen(filename, "rb");
+	int passed = 0;
 
 	if (!file)
 	{
-		passed = 0;
+		passed = 1;
 		error_handler(2);
 	}
 	
 	sc_memoryInit();
 	if (!fread(RAM, sizeof(int), 100, file))
 	{
-		passed = 0;
+		passed = 1;
 		error_handler(5);
 	}
 	fclose(file);
@@ -186,13 +186,13 @@ void MEM_CHECK()
 	int tmp = 0;
 	sc_memoryInit();
 	if (!sc_memorySet(0, 1)) {
-		printf("\t\t |-----> Set (PASSED)\n");
+		printf("\t\t |-----> Set [PASSED]\n");
 			if (!sc_memoryGet(0, &tmp) && tmp == 1) {
-				printf("\t\t |-----> Get (PASSED)\n");
+				printf("\t\t |-----> Get [PASSED]\n");
 					if (!sc_memorySave("RAM")) {
-						printf("\t\t |-----> Save (PASSED)\n");
+						printf("\t\t |-----> Save [PASSED]\n");
 							if (!sc_memoryLoad("RAM") && RAM[0] == 1) {
-								printf("\t\t |-----> Load (PASSED)\n\tMEMORY CHECK COMPLETED SUCCESSFULLY!\n");
+								printf("\t\t |-----> Load [PASSED]\n\tMEMORY CHECK COMPLETED SUCCESSFULLY!\n");
 							} else
 								printf("\t\tWrong loaded value\n");
 					}
@@ -207,11 +207,11 @@ void REG_CHECK()
 	sc_regInit();
 	int tmp = 0;
 	if (!sc_regSet(FREQ_ERR, 1)) {
-		printf("\t\t |-----> Set (PASSED)\n");
+		printf("\t\t |-----> Set [PASSED]\n");
 		printf("\t\t |\t%d\n", reg_flag);
 		if (!sc_regGet(FREQ_ERR, &tmp) && tmp == 1) {
 			printf("\t\t |\t%d\n", tmp);
-			printf("\t\t |-----> Get (PASSED)\n");
+			printf("\t\t |-----> Get [PASSED]\n");
 			printf("\tREGISTER CHECK COMPLETED SUCCESSFULLY!\n");
 		}
 	}
