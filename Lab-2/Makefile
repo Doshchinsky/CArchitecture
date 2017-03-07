@@ -1,6 +1,6 @@
-INCLUDES = -I src/ -I thirdparty/
+INCLUDES = -I src/ -I thirdparty/ -I ../Lab-1/src/
 dirs = ./bin ./obj
-test_obj = ./obj/main_test.o ./obj/MT_lib.o  ./obj/test.o
+test_obj = ./obj/main_test.o ./obj/MT_lib.o ./obj/MSC_lib.o ./obj/test.o
 main_obj = ./obj/MT_main.o ./obj/MT_lib.o ./obj/MSC_lib.o
 
 all: ./bin/main ./bin/test testo

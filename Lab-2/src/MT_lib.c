@@ -147,5 +147,4 @@ void CONSOLE_TEST()
 		}
 		printf("\n");
 	}
-
 }
