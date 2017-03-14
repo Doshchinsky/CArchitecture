@@ -1,7 +1,7 @@
-#ifndef BC_H
-#define BC_H
+#ifndef BCLIB_H
+#define BCLIB_H
 
-#include "mt.h"
+#include "MT_lib.h"
 
 int bc_printA(char *str);
 int bc_box(int x1, int y1, int x2, int y2);

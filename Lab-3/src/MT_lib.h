@@ -1,5 +1,5 @@
-#ifndef MYTERM_H
-#define MYTERM_H
+#ifndef MTLIB_H
+#define MTLIB_H
 
 enum colors {
     black = 0, red, green, yellow, blue, 
