@@ -1,0 +1,1 @@
+# Laboratory №4: "The management console model SimpleComputer: Key Control"
