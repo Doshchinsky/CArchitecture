@@ -1,5 +1,5 @@
-#ifndef VM_H
-#define VM_H
+#ifndef SCLIB_H
+#define SCLIB_H
 
 #include <stdio.h>
 
@@ -19,8 +19,11 @@
 #define WRONG_OPERAND -7
 #define WRONG_COMMAND -8
 
-int memory[100];
-int reg_flag;
+int memory[100], 
+    reg_flag, 
+    inst_cnt,
+    accum, 
+    run_flg;
 
 int sc_memoryInit();
 int sc_memorySet(int address, int value);
@@ -32,5 +35,10 @@ int sc_regSet(int regist, int value);
 int sc_regGet(int regist, int *value);
 int sc_commandEncode(int command, int operand, int *value);
 int sc_commandDecode(int value, int *command, int *operand);
+int sc_instGet(int *value);
+int sc_instSet(int value);
+int sc_accumGet(int *value);
+int sc_accumSet(int value);
+void CU();
 
 #endif
