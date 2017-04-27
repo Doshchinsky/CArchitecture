@@ -32,14 +32,9 @@ void print_mem(int *x, int *y)
         sc_memoryGet(i, &value);
         sc_commandDecode(value, &command, &operand);
         char tmp1[10]; 
-        if (command < 16 && operand < 16)
-            sprintf(tmp1, "0%x:0%x", command, operand);
-        else if (command < 16 && operand >= 16)
-            sprintf(tmp1, "0%x:%x", command, operand);
-        else if (command >= 16 && operand < 16)
-            sprintf(tmp1, "%x:0%x", command, operand);
-        else
-            sprintf(tmp1, "%x:%x", command, operand);
+
+        sprintf(tmp1, "%0*x:%0*x", 2, command, 2, operand);
+
         write(1, tmp1, strlen(tmp1));
         mt_setbgcolor(deflt);
     }
