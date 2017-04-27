@@ -1,0 +1,1 @@
+# Laboratory №5: "The management console model SimpleComputer: Subsystem interrupt. System signals"
